@@ -9,24 +9,9 @@ function satNav(directions) {
     
     let currentX = 0
     let currentY = 0
-    let currentDirection = ''
+    let currentDirection = 'north'
 
-    switch(initialDirection){
-        case 'head east':
-            currentDirection = 'east'
-            break
-        case 'head north':
-            currentDirection = 'north'
-            break
-        case 'head south':
-            currentDirection = 'south'
-            break
-        case 'head west':
-            currentDirection = 'west'
-            break
-        default:
-            currentDirection = 'nothing'
-    }
+
 
     function findDistance(instruction){
         const distanceInstruction = instruction.split(' ')[2]; //?
@@ -86,9 +71,25 @@ function satNav(directions) {
     }
 
     instructionsList.forEach(function(instruction){
-        const firstWord = instruction.split(' ')[0];
+        const firstWord = instruction.split(' ')[0]; //?
+        const lastWord = instruction.split(' ')[1]; //?
         let distatnceToMove = findDistance(instruction); //?
         switch(firstWord){
+            case 'head':
+                switch(lastWord){ 
+                    case 'east':
+                        currentDirection = 'east'
+                        break
+                    case 'north':
+                        currentDirection = 'north'
+                        break
+                    case 'south':
+                        currentDirection = 'south'
+                        break
+                    case 'west':
+                        currentDirection = 'west'
+                        break
+                    }
             case 'take':
                 if(currentDirection === "east" && findDirection(instruction) === "right"){
                     currentX = addRound(currentX, distatnceToMove); //?
@@ -194,34 +195,22 @@ function satNav(directions) {
 }
 
 const instructions = [
-    'Head NORTH',
-    'Take the 2nd LEFT',
-    'Take the 2nd LEFT',
-    'Take the NEXT LEFT',
-    'Go straight on for 3.5km',
-    'Take the NEXT RIGHT',
-    'Go straight on for 2.3km',
-    'Take the NEXT RIGHT',
-    'Take the NEXT RIGHT',
-    'Take the NEXT LEFT',
-    'Take the NEXT RIGHT',
-    'Go straight on for 900m',
-    'You have reached your destination!'
-]
-
-const instructions2 = [
     'Head EAST',
-    'Take the 2nd LEFT',
-    'Take the NEXT LEFT',
-    'Take the NEXT LEFT',
-    'Go straight on for 1.5km',
-    'Take the NEXT RIGHT',
-    'Take the 2nd RIGHT',
-    'Go straight on for 1.7km',
-    'Turn around!',
-    'Take the NEXT LEFT',
-    'Go straight on for 1.0km',
-    'You have reached your destination!'
+    'turn around!',
+    'head west',
+    'head north',
+    'head north',
+    'head east'
 ]
 
-satNav(instructions2) //?
+satNav(instructions) //?
+
+// document.getElementById('go-btn').onclick = function(){
+//     instructions.push(input.value) //?
+// }
+// enterInstruction = () => {
+//     let input = document.getElemezntById('input').value; //?
+//     instructions.push(input.value)
+//     console.log(instructions)
+//     return false
+// }
