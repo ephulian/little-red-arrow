@@ -203,14 +203,12 @@ const instructions = [
     'head east'
 ]
 
-satNav(instructions) //?
+const arr = []
 
-// document.getElementById('go-btn').onclick = function(){
-//     instructions.push(input.value) //?
-// }
-// enterInstruction = () => {
-//     let input = document.getElemezntById('input').value; //?
-//     instructions.push(input.value)
-//     console.log(instructions)
-//     return false
-// }
+function enterInstruction (){
+    const input = document.getElemezntById('input').value;
+    arr.push(input)
+}
+
+satNav(instructions)
+console.log(arr)
