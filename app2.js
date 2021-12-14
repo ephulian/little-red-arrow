@@ -195,20 +195,20 @@ function satNav(directions) {
 }
 
 const instructions = [
-    'Head EAST',
-    'turn around!',
-    'head west',
     'head north',
-    'head north',
-    'head east'
+    'head south',
 ]
 
 const arr = []
 
+// const form = document.getElementById("form");
+// function handleForm(event){ event.preventDefault(); } 
+// form.addEventListener('submit', handleForm);
+
 function enterInstruction (){
-    const input = document.getElemezntById('input').value;
-    arr.push(input)
+    const input = document.getElementById('input').value;
+    instructions.push(input)
 }
 
 satNav(instructions)
-console.log(arr)
+console.log(instructions)
