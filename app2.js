@@ -194,9 +194,7 @@ function satNav(directions) {
     return [currentX * 0.001, currentY*0.001]
 }
 
-const instructions = [
-    'head north',
-    'head south',
+let instructions = [
 ]
 
 const arr = []
@@ -207,8 +205,12 @@ const arr = []
 
 function enterInstruction (){
     const input = document.getElementById('input').value;
-    instructions.push(input)
+    if(input == 'reset'){
+        instructions = []
+    } else {
+        instructions.push(input)
+    }
+    satNav(instructions)
+    console.log(instructions)
 }
 
-satNav(instructions)
-console.log(instructions)
