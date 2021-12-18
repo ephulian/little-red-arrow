@@ -2,37 +2,35 @@ function satNav(directions) {
     const arrow = document.querySelector('.dot')
     const arrowContainer = document.querySelector('.arrow-container')
 
-    const initialDirection = directions.slice(0, 1).join().toLowerCase() //?
-    const instructionsList = Array.from(directions.slice(1)).map(v => v.toLowerCase()) //?
-    const finalDestination = directions.slice(-1).join()
-    
+    const instructionsList = Array.from(directions).map(v => v.toLowerCase())    
     
     let currentX = 0
     let currentY = 0
     let currentDirection = 'north'
 
-
-
+    // returns 1 if next and Nth * 1000 for rest
     function findDistance(instruction){
-        const distanceInstruction = instruction.split(' ')[2]; //?
-        const distanceInstructionIndex = parseInt(instruction.split(' ')[2], 10) //?
-        let distance = 0; //?
+        const distanceInstruction = instruction.split(' ')[2];
+        const distanceInstructionIndex = parseInt(instruction.split(' ')[2], 10)
+        let distance = 0;
 
         if(distanceInstruction == 'next'){
             distance = 1
         } else if (distanceInstructionIndex >= 1){
             distance = distanceInstructionIndex * 1000
         }
-        return distance //?
+        return distance
     }
 
+    // takes instruction and outputs direction
     function findDirection(instruction){
         return instruction.split(' ')[3];
     }
 
+    // check if km or m and outputs the distance
     function findStraight(instruction){
         let distance = 0;
-        const km = instruction.split(' ')[4] //?
+        const km = instruction.split(' ')[3] //?
         if(km.endsWith('km')){
             distance = Number(km.replace(/km/, ' ') * 1000); //?
         } else {
@@ -41,7 +39,7 @@ function satNav(directions) {
         return distance //?
     }
 
-
+    // rounds and adds
     addRound = (current, distance) => {
         let currentVar =0
         if(current >= 0 && current % 1000 === 0){
@@ -53,9 +51,10 @@ function satNav(directions) {
         } else if (current < 0 && current % 1000 !==0){
             currentVar = Math.floor(current * 0.001) * 1000; //?
         }
-    return currentVar
+        return currentVar
     }
-
+    
+    // rounds and subtracts
     subRound = (current, distance) => {
         let currentVar =0
         if(current >= 0 && current % 1000 === 0){
@@ -70,6 +69,7 @@ function satNav(directions) {
     return currentVar
     }
 
+    // main switch 
     instructionsList.forEach(function(instruction){
         const firstWord = instruction.split(' ')[0]; //?
         const lastWord = instruction.split(' ')[1]; //?
@@ -164,7 +164,8 @@ function satNav(directions) {
     function arrowControl(){
         let translateValueX = currentX * 0.05; //?
         let translateValueY = currentY * 0.05; //?
-            
+        
+        // spin
         switch(currentDirection){
             case 'south':
                 arrow.style.transform = ('rotate(180deg)')
@@ -180,16 +181,12 @@ function satNav(directions) {
                 break
             }
         
-            arrowContainer.style.transform = (`translate(${translateValueX}px, ${translateValueY}px)`); //?
+        // move
+        arrowContainer.style.transform = (`translate(${translateValueX}px, ${translateValueY}px)`);
         
     }
 
     arrowControl()
-    
-    console.log(currentX);
-    console.log(currentY);
-    console.log(currentDirection);
-    console.log(arrow.style.transform);
 
     return [currentX * 0.001, currentY*0.001]
 }
@@ -197,20 +194,17 @@ function satNav(directions) {
 let instructions = [
 ]
 
-const arr = []
-
-// const form = document.getElementById("form");
-// function handleForm(event){ event.preventDefault(); } 
-// form.addEventListener('submit', handleForm);
-
 function enterInstruction (){
-    const input = document.getElementById('input').value;
+    let input = document.getElementById('input').value;
     if(input == 'reset'){
         instructions = []
+        document.forms['form'].reset()
     } else {
         instructions.push(input)
+        document.forms['form'].reset()
     }
     satNav(instructions)
+    console.log(input)
     console.log(instructions)
 }
 
